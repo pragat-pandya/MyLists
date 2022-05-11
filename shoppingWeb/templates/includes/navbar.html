@@ -1,21 +1,24 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light container">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary container">
   <div class="container-fluid">
-      <a href="#" class="navbar-brand text-center">
-          <img class="m" src="{% static 'images/logo.svg' %}" height="28" alt="MyLists"><span class="fs-4 fw-bold d-inline-block">My-Lists</span>
+      <a href="#" class="navbar-brand text-center me-5">
+          <img class="" src="{% static 'images/logo.svg' %}" height="28" alt="MyLists"><span class="fs-4 fw-bold d-inline-block">My-Lists</span>
       </a>
       <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
           <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
           <div class="navbar-nav">
-              <a href="#" class="nav-item nav-link active">Home</a>
-              <a href="#" class="nav-item nav-link">Profile</a>
+              <a href="{% url 'homepage' %}" class="nav-item nav-link active">Home</a>
               <a href="#" class="nav-item nav-link">Messages</a>
-              <a href="#" class="nav-item nav-link {% if not request.user.is_authenticated %} disabled {% endif %}" tabindex="-1">Reports</a>
+              <a href="#" class="nav-item nav-link {% if not request.user.is_authenticated %} disabled {% endif %}" tabindex="-1">My Lists</a>
           </div>
           <div class="navbar-nav ms-auto">
-              <a href="#" class="nav-item nav-link">Login</a>
+              {% if request.user.is_authenticated %}
+                <a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a>
+              {% else %}
+                <a href="{% url 'login' %}" class="nav-item nav-link">Login</a>
+              {% endif %}
           </div>
         </div>
   </div>
