@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-
+{% load static %}
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
@@ -9,7 +9,26 @@
     <h1>User is authencticated </h1>
   </section>
 {% else %}
-  <h1 class="container"> Please login for more features. </h1>
+<div class="px-4 py-5 my-5 text-center">
+  <img class="d-block mx-auto mb-4" src="{% static 'images/logo.svg' %}" alt="" width="72" height="70">
+  <h1 class="display-5 fw-bold">My Lists</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">
+      Your one place solution for maintaining all kinds of lists like shopping lists, grocery lists,
+      todo and much more.
+      <br>
+      It also allows you to keep shared lists by adding contributors to your lists.
+    </p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <a href="{% url 'login' %}">
+        <button type="button" class="btn btn-success btn-lg px-4 gap-3">Get started!</button>
+      </a>
+      <a href="{% url 'tellMeMore' %}">
+        <button type="button" class="btn btn-outline-warning btn-lg px-4">Tell me more!</button>
+      </a>
+    </div>
+  </div>
+</div>
 {% endif %}
 
 {% endblock %}

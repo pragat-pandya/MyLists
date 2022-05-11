@@ -5,3 +5,6 @@ def index (request):
 
 def forgotPassword (request):
   return render (request, 'forgotPassword.html')
+
+def tutorial (request):
+  return render (request, 'tutorial.html')
