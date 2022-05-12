@@ -8,4 +8,4 @@ def lists (request):
 
 @login_required(login_url='login')
 def my_lists (request):
-  return render (request, 'list/my_lists.html')
+  return render (request, 'list/list.html')
