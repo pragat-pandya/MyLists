@@ -4,11 +4,6 @@
 
 {% block content %}
 
-{% if request.user.is_authenticated %}
-  <section class="container"> 
-    <h1>User is authencticated </h1>
-  </section>
-{% else %}
 <div class="px-4 py-5 my-5 text-center">
   <img class="d-block mx-auto mb-4" src="{% static 'images/logo.svg' %}" alt="" width="72" height="70">
   <h1 class="display-5 fw-bold">My Lists</h1>
@@ -20,7 +15,7 @@
       It also allows you to keep shared lists by adding contributors to your lists.
     </p>
     <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-      <a href="{% url 'login' %}">
+      <a href="{% if request.user.is_authenticated %} {% url 'myLists' %} {% else %} {% url 'login' %} {% endif %}">
         <button type="button" class="btn btn-success btn-lg px-4 gap-3">Get started!</button>
       </a>
       <a href="{% url 'tellMeMore' %}">
@@ -29,6 +24,4 @@
     </div>
   </div>
 </div>
-{% endif %}
-
 {% endblock %}
