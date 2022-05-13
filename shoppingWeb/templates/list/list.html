@@ -15,8 +15,9 @@
 
 {% block content %}
   <section class="container my-5 bg-light">
-    <div class="text-center p-2">
-      <p class="fw-bold display-3 text-dark">ListName</p>
+    <div class="p-2">
+      <p class="text-center fw-bold display-3 text-dark">{{list.list_name}}</p>
+      <p class="text-end me-5"><span class="text-success">Owned By:</span> {{list.owner}}</p>
     </div>
     <div class="my-5 bg-light">
       <table class="m-auto table table-striped table-hover table-responsive">
@@ -29,40 +30,36 @@
           </tr>
         </thead>
         <tbody>
+          {% for item in list_items %}
           <tr>
-            <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">List-Item Title</td>
-            <td>username of adder</td>
+            <td style="word-wrap: break-word;min-width: 100px;max-width: 160px;">{{item.title}}</td>
+            <td>{{ item.contributor }}</td>
             <td>
-              <img src="{% static 'images/notDone.gif' %}" alt="Not done icon." height="30px" width="30px" class="d-inline">
-              <form clas="d-inline" action="" method="post">
-                {% csrf_token %}
-                <input type="text" value="done" class="d-none" name="action"> 
-                <input type="submit" value="DONE" class="btn btn-sm btn-success">
-              </form>
+              {% if item.is_done is False %}
+                <img src="{% static 'images/notDone.gif' %}" alt="Not done icon." height="30px" width="30px" class="d-inline">
+              {% else %}
+                <img src="{% static 'images/done.gif' %}" alt="done icon." height="30px" width="30px" class="d-inline">
+              {% endif %}
             </td>
             <td>
-              <form action="" method="post">
+              <form clas="d-inline" action="{% url 'theList' list.list_name %}" method="post">
                 {% csrf_token %}
-                <input type="text" value="done" class="d-none" name="action"> 
-                <input type="submit" value="DONE" class="btn btn-sm btn-success">
+                {% if item.is_done is False %}
+                  <input type="text" value="{{ item.title }}" class="d-none" name="title">
+                  <input type="text" value="done" class="d-none" name="action"> 
+                  <input type="submit" value="DONE" class="btn btn-sm btn-success">
+                {% else %}
+                  <input type="text" value="{{ item.title }}" class="d-none" name="title">
+                  <input type="text" value="undo" class="d-none" name="action"> 
+                  <input type="submit" value="UNDO" class="btn btn-sm btn-danger">
+                {% endif %}
               </form>
             </td>
           </tr>
+          {% endfor %}
           <tr>
-            <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">List-Item Title</td>
-            <td>username of adder</td>
-            <td><img src="{% static 'images/done.gif' %}" alt="Not done icon." height="30px" width="30px"></td>
-            <td>
-              <form action="" method="post">
-                {% csrf_token %} 
-                <input type="text" value="undo" class="d-none" name="action">
-                <input type="submit" value="UNDO" class="btn btn-sm btn-danger">
-              </form>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="4" class="">
-              <form action="" class="d-inline" method="post"></form>
+            <td colspan="4">
+              <form action="{% url 'theList' list.list_name %}" method="post">
               {% csrf_token %}
                 <input type="text" name="task" class="form-control" placeholder="Enter new task">
                 <input type="submit" value="ADD" class="my-2 btn btn-md btn-warning">
@@ -79,14 +76,16 @@
       </p>
       <div>
         <ul>
-          <li>user1</li>
-          <li>user2</li>
+          {% if user != list.owner %}
+          <li>{{user.username}}</li>
+          {% endif %}
         </ul>
       </div>
       <form action="" class="form-inline">
-        <div class="input-group">
-          <input type="text" class="from-control" name="newContributor" placeholder="Enter username of contributor">
-          <input type="submit" value="Add Contributor" class="mx-2 my-2 btn btn-md btn-outline-primary">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Add a contributor</label>
+          <input type="text" name="newContri" class="form-control" placeholder="Enter username of contributor">
+          <input type="submit" value="Add Contributor" class="my-2 btn btn-md btn-outline-primary">
         </div>
       </form>
     </div>

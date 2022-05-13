@@ -7,79 +7,22 @@
 {% block content %}
   <section class="container my-5 bg-light">
     <div class="text-center">
-      <p class="fw-bold display-3 text-dark">[username]'s lists</p>
+      <p class="fw-bold display-3 text-dark">{{ request.user.username }}'s lists</p>
     </div>
+    
+    {% for i in lists %}
     <div class="row my-5 border-end bg-light p-2">
       <div class="card bg-light">
         <div class="card-header text-end">
-          <span class="text-warning">Last Edited:</span> Time and Date
+          <span class="text-warning">Created on:</span> {{ i.created_at }}
         </div>
         <div class="card-body">
-          <h5 class="card-title">List Name</h5>
-          <p class="card-text lead">List Description</p>
-          <a href="#" class="btn btn-success">Go to the list</a>
+          <h5 class="card-title">{{ i.list_name }}</h5>
+          <p class="card-text lead">{{ i.description }}</p>
+          <a href="{% url 'theList' i.list_name %}" class="btn btn-success">Go to the list</a>
         </div>
       </div>
     </div>
-    <div class="row my-5 border-end bg-light p-2">
-      <div class="card bg-light">
-        <div class="card-header text-end">
-          <span class="text-warning">Last Edited:</span> Time and Date
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">List Name</h5>
-          <p class="card-text lead">List Description</p>
-          <a href="#" class="btn btn-success">Go to the list</a>
-        </div>
-      </div>
-    </div>
-    <div class="row my-5 border-end bg-light p-2">
-      <div class="card bg-light">
-        <div class="card-header text-end">
-          <span class="text-warning">Last Edited:</span> Time and Date
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">List Name</h5>
-          <p class="card-text lead">List Description</p>
-          <a href="#" class="btn btn-success">Go to the list</a>
-        </div>
-      </div>
-    </div>
-    <div class="row my-5 border-end bg-light p-2">
-      <div class="card bg-light">
-        <div class="card-header text-end">
-          <span class="text-warning">Last Edited:</span> Time and Date
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">List Name</h5>
-          <p class="card-text lead">List Description</p>
-          <a href="#" class="btn btn-success">Go to the list</a>
-        </div>
-      </div>
-    </div>
-    <div class="row my-5 border-end bg-light p-2">
-      <div class="card bg-light">
-        <div class="card-header text-end">
-          <span class="text-warning">Last Edited:</span> Time and Date
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">List Name</h5>
-          <p class="card-text lead">List Description</p>
-          <a href="#" class="btn btn-success">Go to the list</a>
-        </div>
-      </div>
-    </div>
-    <div class="row my-5 border-end bg-light p-2">
-      <div class="card bg-light">
-        <div class="card-header text-end">
-          <span class="text-warning">Last Edited:</span> Time and Date
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">List Name</h5>
-          <p class="card-text lead">List Description</p>
-          <a href="#" class="btn btn-success">Go to the list</a>
-        </div>
-      </div>
-    </div>
+    {% endfor %}
   </section>
 {% endblock %}

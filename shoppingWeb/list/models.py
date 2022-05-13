@@ -5,7 +5,7 @@ from accounts.models import Account
 # Create your models here.
 
 class ListItem (models.Model):
-  title = models.CharField (max_length=500)
+  title = models.CharField (max_length=500, unique=True)
   added_to = models.ForeignKey ('List', related_name='parent', on_delete=models.CASCADE)
   contributor = models.ForeignKey (Account, on_delete=models.CASCADE)
   added_at = models.DateTimeField (auto_now_add=True)
